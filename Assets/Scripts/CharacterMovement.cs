@@ -9,6 +9,7 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask groundLayer;
     public float groundCheckRadius;
     public bool grounded;
+    public bool facingLeft = true;
     void Start()
     {
         
@@ -22,10 +23,27 @@ public class CharacterMovement : MonoBehaviour
         {
             rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpVelocity);
         }
+
+        if (moveDirection > 0 && facingLeft)
+        {
+            Flip();
+        }
+        else if (moveDirection < 0 && !facingLeft)
+        {
+            Flip();
+        }
     }
 
     void FixedUpdate()
     {
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+
+    void Flip()
+    {
+        facingLeft = !facingLeft;
+        Vector2 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
