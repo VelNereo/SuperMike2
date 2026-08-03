@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [Header ("Movement")]
+    [Header("Movement")]
     public Rigidbody2D rb2D;
     public float moveSpeed;
     public float jumpVelocity;
-    [Header ("Flip")]
+    [Header("Flip")]
     public bool facingLeft = true;
-    [Header ("Ground Check")]
+    [Header("Ground Check")]
     public Transform groundCheck;
     public LayerMask groundLayer;
     [Range(0.01f,0.5f)] public float groundCheckRadius;
@@ -17,6 +17,9 @@ public class CharacterMovement : MonoBehaviour
     [Header("Coyote Time")]
     [Range(0.05f,0.5f)] public float coyoteTime = 0.2f;
     public float coyoteTimeCounter;
+    [Header("Jump Buffer")]
+    [Range(0.1f, 0.5f)]public float jumpBuffer = 0.2f;
+    public float jumpBufferCounter;
     
     void Start()
     {
@@ -36,13 +39,21 @@ public class CharacterMovement : MonoBehaviour
         {
             coyoteTimeCounter -= Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0f)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jumpBufferCounter = jumpBuffer;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+        if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f)
         {
             rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpVelocity);
+            jumpBufferCounter = 0f;
         }
         if (Input.GetKeyUp(KeyCode.Space) && rb2D.linearVelocity.y > 0)
         {
-            rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, rb2D.linearVelocity.y * 0.5f);
             coyoteTimeCounter = 0f;
         }
 

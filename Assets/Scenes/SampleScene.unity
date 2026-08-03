@@ -711,7 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
   rb2D: {fileID: 1489364528}
   moveSpeed: 6.5
-  jumpVelocity: 10.5
+  jumpVelocity: 9.5
   facingLeft: 1
   groundCheck: {fileID: 1371709441}
   groundLayer:
@@ -721,6 +721,8 @@ MonoBehaviour:
   grounded: 0
   coyoteTime: 0.2
   coyoteTimeCounter: 0
+  jumpBuffer: 0.2
+  jumpBufferCounter: 0
 --- !u!212 &1489364530
 SpriteRenderer:
   serializedVersion: 2
