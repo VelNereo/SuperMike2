@@ -23,7 +23,7 @@ public class CharacterMovement : MonoBehaviour
     
     void Start()
     {
-        
+        facingLeft = false;
     }
 
     void Update()
